@@ -131,7 +131,7 @@
 
         .form-section { margin-bottom: 2rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--border-color); }
         .form-section h2 { margin-bottom: 1rem; font-size: 1.25rem; color: var(--primary-color); }
-        .form-group { margin-bottom: 1.25rem; position: relative; }
+        .form-group, .terms { margin-bottom: 1.25rem; position: relative; }
         label { display: block; margin-bottom: 0.5rem; font-weight: 500; }
         .required::after { content: " *"; color: var(--error-color); }
 
@@ -160,6 +160,7 @@
 
         .error-message { color: var(--error-color); font-size: 0.875rem; margin-top: 0.5rem; display: none; }
         .invalid .error-message { display: block; }
+        .terms.invalid .error-message { display: block; }
 
         /* Improved Drag and Drop File Upload */
         .drop-zone {
@@ -269,7 +270,6 @@
             background-color: #f3f4f6;
         }
 
-        .terms { margin: 2rem 0; }
         .terms label { display: flex; align-items: flex-start; font-weight: normal; cursor: pointer; }
         .terms input { margin-top: 0.25rem; margin-right: 0.5rem; width: auto; }
 
@@ -355,7 +355,6 @@
 <div class="container">
     <h1>Candidate Application Form</h1>
 
-    <!-- Progress Steps -->
     <div class="progress-container">
         <div class="progress-bar" id="progress-bar"></div>
         <div class="progress-step active" data-title="Personal" data-step="1"></div>
@@ -365,16 +364,13 @@
         <div class="progress-step" data-title="Review" data-step="5"></div>
     </div>
 
-    <form id="application-form" action="https://formsubmit.co/info.speedwingshr@gmail.com" method="POST" enctype="multipart/form-data" onsubmit="return false">
-        <!-- Formsubmit hidden fields -->
+    <form id="application-form" action="https://formsubmit.co/info.speedwingshr@gmail.com" method="POST" enctype="multipart/form-data">
         <input type="hidden" name="_next" value="https://speedwingsrecruit.com/thank-you.html" />
         <input type="hidden" name="_captcha" value="false" />
         <input type="hidden" name="_template" value="table" />
         <input type="hidden" name="_subject" id="subjectField" value="New Candidate Application" />
-        <!-- Honeypot anti-spam field: leave empty -->
         <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off" />
 
-        <!-- Step 1: Personal Information -->
         <div class="form-step active" id="step-1">
             <h2>Personal Information</h2>
 
@@ -431,7 +427,7 @@
 
             <div class="form-group">
                 <label for="phone" class="required">Phone Number</label>
-                <input type="text" id="phone" name="phone" required aria-describedby="phoneError phoneHint" />
+                <input type="tel" id="phone" name="phone" required aria-describedby="phoneError phoneHint" />
                 <i class="fas fa-check-circle validation-icon valid-icon"></i>
                 <i class="fas fa-exclamation-circle validation-icon invalid-icon"></i>
                 <div id="phoneHint" class="hint">Only digits, +, spaces, and hyphens are allowed</div>
@@ -452,7 +448,6 @@
             </div>
         </div>
 
-        <!-- Step 2: Professional Information -->
         <div class="form-step" id="step-2">
             <h2>Professional Information</h2>
 
@@ -539,7 +534,6 @@
             </div>
         </div>
 
-        <!-- Step 3: Preferences -->
         <div class="form-step" id="step-3">
             <h2>Preferences</h2>
 
@@ -582,11 +576,9 @@
             </div>
         </div>
 
-        <!-- Step 4: Documents -->
         <div class="form-step" id="step-4">
             <h2>Documents</h2>
 
-            <!-- CV -->
             <div class="form-group">
                 <label for="cv" class="required">Upload CV / Resume</label>
                 <div class="drop-zone" id="cv-drop-zone" aria-describedby="cvError cvHint">
@@ -602,7 +594,6 @@
                 <div class="file-previews" id="cv-preview"></div>
             </div>
 
-            <!-- Experience Certificate -->
             <div class="form-group">
                 <label for="certificate">Upload Experience Certificate</label>
                 <div class="drop-zone" id="certificate-drop-zone" aria-describedby="certificateHint">
@@ -618,7 +609,6 @@
                 <div class="file-previews" id="certificate-preview"></div>
             </div>
 
-            <!-- Passport -->
             <div class="form-group">
                 <label for="passport" class="required">Upload Passport</label>
                 <div class="drop-zone" id="passport-drop-zone" aria-describedby="passportHint passportError">
@@ -634,7 +624,6 @@
                 <div class="file-previews" id="passport-preview"></div>
             </div>
 
-            <!-- PCC -->
             <div class="form-group">
                 <label for="pcc">Upload Police Clearance Certificate (PCC)</label>
                 <div class="drop-zone" id="pcc-drop-zone" aria-describedby="pccHint pccError">
@@ -650,11 +639,9 @@
                 <div class="file-previews" id="pcc-preview"></div>
             </div>
 
-            <!-- Optional Documents Section -->
             <div class="optional-section">
                 <h3>Optional Documents</h3>
                 
-                <!-- Passport Copy (Optional) -->
                 <div class="form-group">
                     <label for="passportCopy">Upload Passport Copy (Optional)</label>
                     <div class="drop-zone" id="passportCopy-drop-zone" aria-describedby="passportCopyHint passportCopyError">
@@ -670,7 +657,6 @@
                     <div class="file-previews" id="passportCopy-preview"></div>
                 </div>
 
-                <!-- Other Document -->
                 <div class="form-group">
                     <label for="otherDoc">Upload Other Document</label>
                     <div class="drop-zone" id="otherDoc-drop-zone" aria-describedby="otherDocHint otherDocError">
@@ -687,15 +673,12 @@
                 </div>
             </div>
 
-            <div class="hint">Note: Files are validated client-side only in this preview. In production, files would be securely uploaded via HTTPS to our servers.</div>
-
             <div class="form-navigation">
                 <button type="button" class="secondary prev-btn">Previous</button>
                 <button type="button" class="next-btn">Next</button>
             </div>
         </div>
 
-        <!-- Step 5: Review -->
         <div class="form-step" id="step-5">
             <h2>Review Your Application</h2>
             
@@ -732,457 +715,249 @@
                 <button type="submit" id="submit-btn">Submit Application</button>
             </div>
         </div>
-
-        <!-- Success Message -->
-        <div class="success-message" id="success-message">
-            <i class="fas fa-check-circle success-icon"></i>
-            <h2>Application Submitted Successfully!</h2>
-            <p>Thank you for your application. We will review your information and contact you shortly.</p>
-        </div>
     </form>
 </div>
 
 <script>
-    // Form navigation and validation
+document.addEventListener('DOMContentLoaded', () => {
     const form = document.getElementById('application-form');
-    const steps = document.querySelectorAll('.form-step');
-    const progressSteps = document.querySelectorAll('.progress-step');
+    const steps = Array.from(document.querySelectorAll('.form-step'));
+    const progressSteps = Array.from(document.querySelectorAll('.progress-step'));
     const progressBar = document.getElementById('progress-bar');
     const nextBtns = document.querySelectorAll('.next-btn');
     const prevBtns = document.querySelectorAll('.prev-btn');
     let currentStep = 0;
-
-    // Update progress bar
-    function updateProgressBar() {
+    
+    // --- UTILITY FUNCTIONS ---
+    const isValidEmail = email => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    const isValidPhone = phone => /^[\d\s+\-()]+$/.test(phone);
+    const formatFileSize = bytes => {
+        if (bytes === 0) return '0 Bytes';
+        const k = 1024;
+        const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
+        const i = Math.floor(Math.log(bytes) / Math.log(k));
+        return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+    };
+    
+    // --- STEP NAVIGATION ---
+    const updateProgressBar = () => {
         progressBar.style.width = `${(currentStep / (steps.length - 1)) * 100}%`;
         progressSteps.forEach((step, idx) => {
-            if (idx < currentStep) {
-                step.classList.add('completed');
-                step.classList.remove('active');
-            } else if (idx === currentStep) {
-                step.classList.add('active');
-                step.classList.remove('completed');
-            } else {
-                step.classList.remove('active', 'completed');
-            }
+            step.classList.remove('active', 'completed');
+            if (idx < currentStep) step.classList.add('completed');
+            else if (idx === currentStep) step.classList.add('active');
         });
-    }
-
-    // Navigate to next step
-    function goToNextStep() {
-        if (validateStep(currentStep)) {
-            steps[currentStep].classList.remove('active');
-            currentStep++;
-            steps[currentStep].classList.add('active');
-            updateProgressBar();
-            
-            // If we're on the review step, populate the review
-            if (currentStep === 4) {
-                populateReview();
-            }
-        }
-    }
-
-    // Navigate to previous step
-    function goToPrevStep() {
-        steps[currentStep].classList.remove('active');
-        currentStep--;
-        steps[currentStep].classList.add('active');
+    };
+    
+    const showStep = (stepIndex) => {
+        steps.forEach((step, index) => {
+            step.classList.toggle('active', index === stepIndex);
+        });
+        currentStep = stepIndex;
         updateProgressBar();
-    }
+    };
 
-    // Validate step
-    function validateStep(stepIndex) {
+    // --- VALIDATION ---
+    const validateField = (field) => {
+        const container = field.closest('.form-group, .terms');
+        if (!container) return true;
+
         let isValid = true;
-        const currentStep = steps[stepIndex];
-        const requiredFields = currentStep.querySelectorAll('[required]');
-        
-        requiredFields.forEach(field => {
-            // Skip validation for hidden fields
-            if (field.offsetParent === null) return;
-            
-            // Reset field validation state
-            field.closest('.form-group').classList.remove('valid', 'invalid');
-            
-            // Validate based on field type
-            if (field.type === 'checkbox' || field.type === 'radio') {
-                // Handle checkbox groups and radio buttons
-                const groupName = field.name;
-                const group = currentStep.querySelectorAll(`[name="${groupName}"]`);
-                const checked = Array.from(group).some(input => input.checked);
-                
-                if (!checked) {
-                    isValid = false;
-                    const errorElement = document.getElementById(`${groupName}Error`);
-                    if (errorElement) {
-                        errorElement.style.display = 'block';
-                    }
-                    // Mark all in group as invalid?
-                    group.forEach(input => {
-                        input.closest('.form-group').classList.add('invalid');
-                    });
-                } else {
-                    const errorElement = document.getElementById(`${groupName}Error`);
-                    if (errorElement) {
-                        errorElement.style.display = 'none';
-                    }
-                    group.forEach(input => {
-                        input.closest('.form-group').classList.remove('invalid');
-                    });
-                }
-            } else if (field.type === 'file') {
-                // Handle file inputs
-                if (field.files.length === 0) {
-                    isValid = false;
-                    field.closest('.form-group').classList.add('invalid');
-                } else {
-                    // Check each file for size and type
-                    const validTypes = field.accept.split(',').map(type => type.trim());
-                    let allValid = true;
-                    
-                    for (let i = 0; i < field.files.length; i++) {
-                        const file = field.files[i];
-                        const fileType = '.' + file.name.split('.').pop().toLowerCase();
-                        
-                        if (!validTypes.includes(fileType) && !validTypes.includes('.' + file.type.split('/')[1])) {
-                            allValid = false;
-                        }
-                        
-                        if (file.size > 5 * 1024 * 1024) { // 5MB limit
-                            allValid = false;
-                        }
-                    }
-                    
-                    if (!allValid) {
-                        isValid = false;
-                        field.closest('.form-group').classList.add('invalid');
-                    } else {
-                        field.closest('.form-group').classList.remove('invalid');
-                        field.closest('.form-group').classList.add('valid');
-                    }
-                }
-            } else {
-                // Handle text inputs, selects, textareas
-                if (!field.value.trim()) {
-                    isValid = false;
-                    field.closest('.form-group').classList.add('invalid');
-                } else {
-                    // Additional validation for specific fields
-                    if (field.id === 'email' && !isValidEmail(field.value)) {
-                        isValid = false;
-                        field.closest('.form-group').classList.add('invalid');
-                    } else if (field.id === 'phone' && !isValidPhone(field.value)) {
-                        isValid = false;
-                        field.closest('.form-group').classList.add('invalid');
-                    } else {
-                        field.closest('.form-group').classList.remove('invalid');
-                        field.closest('.form-group').classList.add('valid');
-                    }
-                }
-            }
-        });
-        
-        return isValid;
-    }
+        const isRequired = field.hasAttribute('required');
 
-    // Email validation
-    function isValidEmail(email) {
-        const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        return re.test(email);
-    }
-
-    // Phone validation
-    function isValidPhone(phone) {
-        const re = /^[\d\s+\-()]+$/;
-        return re.test(phone);
-    }
-
-    // Populate review
-    function populateReview() {
-        // Personal Information
-        const personalData = {
-            'Full Name': document.getElementById('fullName').value,
-            'Date of Birth': document.getElementById('dob').value,
-            'Gender': document.querySelector('input[name="gender"]:checked')?.value || 'Not provided',
-            'Nationality': document.getElementById('nationality').value,
-            'Address': document.getElementById('address').value,
-            'Phone': document.getElementById('phone').value,
-            'Email': document.getElementById('email').value
-        };
-        
-        let personalHTML = '';
-        for (const [key, value] of Object.entries(personalData)) {
-            personalHTML += `<div><strong>${key}:</strong> ${value || 'Not provided'}</div>`;
-        }
-        document.getElementById('review-personal').innerHTML = personalHTML;
-        
-        // Professional Information
-        const professionalData = {
-            'Position Applied For': document.getElementById('position').value,
-            'Years of Experience': document.getElementById('experience').value,
-            'Previous Employers': document.getElementById('previousEmployers').value || 'Not provided',
-            'Industry Experience': Array.from(document.querySelectorAll('input[name="industry"]:checked'))
-                .map(cb => cb.value).join(', ') || 'None selected',
-            'Highest Education': document.getElementById('education').value,
-            'Trade Certificates': document.getElementById('certificates').value || 'None',
-            'Languages Known': Array.from(document.querySelectorAll('input[name="languages"]:checked'))
-                .map(cb => cb.value).join(', ') || 'None selected',
-            'Special Skills': document.getElementById('skills').value || 'None'
-        };
-        
-        let professionalHTML = '';
-        for (const [key, value] of Object.entries(professionalData)) {
-            professionalHTML += `<div><strong>${key}:</strong> ${value}</div>`;
-        }
-        document.getElementById('review-professional').innerHTML = professionalHTML;
-        
-        // Preferences
-        const preferencesData = {
-            'Willing to work abroad': document.querySelector('input[name="workAbroad"]:checked')?.value || 'Not specified',
-            'Preferred Region': document.querySelector('input[name="preferredRegion"]:checked')?.value || 'Not specified',
-            'Available Start Date': document.getElementById('startDate').value || 'Not specified',
-            'Physically fit to work': document.querySelector('input[name="physicallyFit"]:checked')?.value || 'Not specified'
-        };
-        
-        let preferencesHTML = '';
-        for (const [key, value] of Object.entries(preferencesData)) {
-            preferencesHTML += `<div><strong>${key}:</strong> ${value}</div>`;
-        }
-        document.getElementById('review-preferences').innerHTML = preferencesHTML;
-        
-        // Documents
-        const documentFields = ['cv', 'certificate', 'passport', 'pcc', 'passportCopy', 'otherDoc'];
-        let documentsHTML = '';
-        
-        documentFields.forEach(field => {
-            const input = document.getElementById(field);
-            if (input && input.files.length > 0) {
-                documentsHTML += `<div><strong>${field.toUpperCase()}:</strong> `;
-                for (let i = 0; i < input.files.length; i++) {
-                    documentsHTML += `${input.files[i].name} (${formatFileSize(input.files[i].size)})`;
-                    if (i < input.files.length - 1) documentsHTML += ', ';
-                }
-                documentsHTML += '</div>';
-            }
-        });
-        
-        if (!documentsHTML) {
-            documentsHTML = '<div>No documents uploaded</div>';
-        }
-        
-        document.getElementById('review-documents').innerHTML = documentsHTML;
-    }
-
-    // Format file size
-    function formatFileSize(bytes) {
-        if (bytes < 1024) return bytes + ' bytes';
-        else if (bytes < 1048576) return (bytes / 1024).toFixed(1) + ' KB';
-        else return (bytes / 1048576).toFixed(1) + ' MB';
-    }
-
-    // Event listeners
-    nextBtns.forEach(btn => {
-        btn.addEventListener('click', goToNextStep);
-    });
-
-    prevBtns.forEach(btn => {
-        btn.addEventListener('click', goToPrevStep);
-    });
-
-    // Form submission
-    form.addEventListener('submit', function(e) {
-        e.preventDefault();
-        
-        if (validateStep(currentStep) && document.getElementById('terms').checked) {
-            // In a real application, you would submit the form data to a server here
-            // For this demo, we'll just show a success message
-            document.getElementById('success-message').style.display = 'block';
-            form.style.display = 'none';
-            
-            // In a real implementation, you would submit the form
-            // this.submit();
-        } else if (!document.getElementById('terms').checked) {
-            document.getElementById('termsError').style.display = 'block';
-        }
-    });
-
-    // Real-time validation for fields
-    document.querySelectorAll('input, select, textarea').forEach(field => {
-        field.addEventListener('blur', () => {
-            if (field.hasAttribute('required')) {
-                validateField(field);
-            }
-        });
-        
-        // For radio and checkbox groups, validate when any option is selected
-        if (field.type === 'radio' || field.type === 'checkbox') {
-            field.addEventListener('change', () => {
-                if (field.hasAttribute('required')) {
-                    validateField(field);
-                }
-            });
-        }
-    });
-
-    // Validate individual field
-    function validateField(field) {
-        const formGroup = field.closest('.form-group');
-        
-        if (field.type === 'checkbox' || field.type === 'radio') {
+        if (field.type === 'checkbox') {
             const groupName = field.name;
             const group = document.querySelectorAll(`[name="${groupName}"]`);
-            const checked = Array.from(group).some(input => input.checked);
-            
-            if (!checked) {
-                formGroup.classList.add('invalid');
-                formGroup.classList.remove('valid');
-            } else {
-                formGroup.classList.remove('invalid');
-                formGroup.classList.add('valid');
-            }
+            const isGroupRequired = Array.from(group).some(el => el.hasAttribute('required'));
+            if(isGroupRequired) isValid = Array.from(group).some(input => input.checked);
+        } else if (field.type === 'radio') {
+            const groupName = field.name;
+            const group = document.querySelectorAll(`[name="${groupName}"]`);
+            isValid = Array.from(group).some(input => input.checked);
         } else if (field.type === 'file') {
-            if (field.files.length === 0) {
-                formGroup.classList.add('invalid');
-                formGroup.classList.remove('valid');
-            } else {
-                formGroup.classList.remove('invalid');
-                formGroup.classList.add('valid');
-            }
+            if (isRequired) isValid = field.files.length > 0;
         } else {
-            if (!field.value.trim()) {
-                formGroup.classList.add('invalid');
-                formGroup.classList.remove('valid');
-            } else {
-                if (field.id === 'email' && !isValidEmail(field.value)) {
-                    formGroup.classList.add('invalid');
-                    formGroup.classList.remove('valid');
-                } else if (field.id === 'phone' && !isValidPhone(field.value)) {
-                    formGroup.classList.add('invalid');
-                    formGroup.classList.remove('valid');
-                } else {
-                    formGroup.classList.remove('invalid');
-                    formGroup.classList.add('valid');
-                }
-            }
+             if (isRequired) isValid = field.value.trim() !== '';
+             if (isValid && field.type === 'email') isValid = isValidEmail(field.value);
+             if (isValid && field.id === 'phone') isValid = isValidPhone(field.value);
         }
-    }
+        
+        if(!isRequired && !field.value) {
+           container.classList.remove('valid', 'invalid');
+        } else if (isValid) {
+            container.classList.add('valid');
+            container.classList.remove('invalid');
+        } else {
+            container.classList.add('invalid');
+            container.classList.remove('valid');
+        }
+        return isValid;
+    };
+    
+    const validateStep = (stepIndex) => {
+        let isStepValid = true;
+        const currentStepEl = steps[stepIndex];
+        const fieldsToValidate = currentStepEl.querySelectorAll('[required], input[type="email"], input[id="phone"]');
+        
+        fieldsToValidate.forEach(field => {
+            if (!validateField(field)) {
+                isStepValid = false;
+            }
+        });
+        return isStepValid;
+    };
 
-    // File upload handling
-    document.querySelectorAll('.file-input').forEach(input => {
-        input.addEventListener('change', function() {
-            handleFiles(this.files, this.id);
+    // --- REVIEW PAGE ---
+    const populateReview = () => {
+        const data = new FormData(form);
+        const reviewData = {
+            personal: '',
+            professional: '',
+            preferences: '',
+            documents: ''
+        };
+
+        const personalFields = ['fullName', 'dob', 'gender', 'nationality', 'address', 'phone', 'email'];
+        const professionalFields = ['position', 'experience', 'previousEmployers', 'industry', 'education', 'certificates', 'languages', 'skills'];
+        const preferencesFields = ['workAbroad', 'preferredRegion', 'startDate', 'physicallyFit'];
+        const documentFields = ['cv', 'certificate', 'passport', 'pcc', 'passportCopy', 'otherDoc'];
+        
+        for (const [key, value] of data.entries()) {
+            const label = document.querySelector(`label[for="${key}"], legend`)?.textContent || key;
+            if (value instanceof File && value.size > 0) continue; // Skip files here
+            if (key.startsWith('_') || key === 'terms') continue;
+
+            let html = `<div><strong>${label.replace(' *', '')}:</strong> ${value || 'Not provided'}</div>`;
+            if (personalFields.includes(key)) reviewData.personal += html;
+            else if (professionalFields.includes(key)) reviewData.professional += html;
+            else if (preferencesFields.includes(key)) reviewData.preferences += html;
+        }
+
+        documentFields.forEach(fieldId => {
+            const input = document.getElementById(fieldId);
+            if (input && input.files.length > 0) {
+                 const label = document.querySelector(`label[for="${fieldId}"]`).textContent;
+                 const fileNames = Array.from(input.files).map(f => `${f.name} (${formatFileSize(f.size)})`).join(', ');
+                 reviewData.documents += `<div><strong>${label.replace(' *', '')}:</strong> ${fileNames}</div>`;
+            }
+        });
+
+        document.getElementById('review-personal').innerHTML = reviewData.personal || 'No information provided.';
+        document.getElementById('review-professional').innerHTML = reviewData.professional || 'No information provided.';
+        document.getElementById('review-preferences').innerHTML = reviewData.preferences || 'No information provided.';
+        document.getElementById('review-documents').innerHTML = reviewData.documents || 'No documents uploaded.';
+    };
+
+    // --- EVENT LISTENERS ---
+    nextBtns.forEach(button => {
+        button.addEventListener('click', () => {
+            if (validateStep(currentStep)) {
+                if (currentStep === 3) { // Before going to review
+                    populateReview();
+                }
+                showStep(currentStep + 1);
+            }
         });
     });
 
-    // Drag and drop functionality
-    document.querySelectorAll('.drop-zone').forEach(zone => {
-        zone.addEventListener('dragover', function(e) {
-            e.preventDefault();
-            this.classList.add('dragover');
-        });
-        
-        zone.addEventListener('dragleave', function() {
-            this.classList.remove('dragover');
-        });
-        
-        zone.addEventListener('drop', function(e) {
-            e.preventDefault();
-            this.classList.remove('dragover');
-            const inputId = this.id.replace('-drop-zone', '');
-            const input = document.getElementById(inputId);
-            input.files = e.dataTransfer.files;
-            handleFiles(e.dataTransfer.files, inputId);
-        });
-        
-        zone.addEventListener('click', function() {
-            const inputId = this.id.replace('-drop-zone', '');
-            document.getElementById(inputId).click();
+    prevBtns.forEach(button => {
+        button.addEventListener('click', () => {
+            showStep(currentStep - 1);
         });
     });
 
-    // Handle uploaded files
-    function handleFiles(files, inputId) {
-        const previewContainer = document.getElementById(`${inputId}-preview`);
-        const errorElement = document.getElementById(`${inputId}Error`);
-        let hasError = false;
-        
-        // Clear previous previews
-        previewContainer.innerHTML = '';
-        
-        if (files.length === 0) {
-            errorElement.style.display = 'block';
+    form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const termsCheckbox = document.getElementById('terms');
+        const termsContainer = termsCheckbox.closest('.terms');
+
+        if (!termsCheckbox.checked) {
+            termsContainer.classList.add('invalid');
+            termsContainer.scrollIntoView({ behavior: 'smooth', block: 'center' });
             return;
         }
         
-        // Validate each file
-        for (let i = 0; i < files.length; i++) {
-            const file = files[i];
-            const validTypes = document.getElementById(inputId).accept.split(',').map(type => type.trim());
-            const fileType = '.' + file.name.split('.').pop().toLowerCase();
-            
-            if (!validTypes.includes(fileType) && !validTypes.includes('.' + file.type.split('/')[1])) {
-                hasError = true;
-                continue;
-            }
-            
-            if (file.size > 5 * 1024 * 1024) {
-                hasError = true;
-                continue;
-            }
-            
-            // Create preview
+        termsContainer.classList.remove('invalid');
+        const submitBtn = document.getElementById('submit-btn');
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Submitting...';
+        form.submit();
+    });
+
+    // Real-time validation listeners
+    form.querySelectorAll('input, select, textarea').forEach(field => {
+        field.addEventListener('input', () => validateField(field));
+        if (field.type === 'checkbox' || field.type === 'radio') {
+             field.addEventListener('change', () => validateField(field));
+        }
+    });
+
+    // --- FILE HANDLING ---
+    let fileStore = {};
+    const handleFiles = (files, inputId) => {
+        const input = document.getElementById(inputId);
+        const previewContainer = document.getElementById(`${inputId}-preview`);
+        previewContainer.innerHTML = '';
+        fileStore[inputId] = Array.from(files);
+
+        fileStore[inputId].forEach((file, index) => {
             const preview = document.createElement('div');
             preview.className = 'file-preview';
-            
             let iconClass = 'fa-file';
             if (file.type.includes('image')) iconClass = 'fa-file-image';
             else if (file.type.includes('pdf')) iconClass = 'fa-file-pdf';
             else if (file.type.includes('word')) iconClass = 'fa-file-word';
-            
             preview.innerHTML = `
                 <i class="fas ${iconClass}"></i>
-                <div class="file-name">${file.name}</div>
+                <div class="file-name" title="${file.name}">${file.name}</div>
                 <div class="file-size">${formatFileSize(file.size)}</div>
-                <button type="button" class="file-remove" data-file-index="${i}" data-input-id="${inputId}">&times;</button>
+                <button type="button" class="file-remove" data-file-index="${index}" data-input-id="${inputId}">&times;</button>
             `;
-            
             previewContainer.appendChild(preview);
-        }
-        
-        // Show error if any file was invalid
-        if (hasError) {
-            errorElement.style.display = 'block';
-        } else {
-            errorElement.style.display = 'none';
-        }
-        
-        // Add event listeners to remove buttons
-        previewContainer.querySelectorAll('.file-remove').forEach(btn => {
-            btn.addEventListener('click', function() {
-                const fileIndex = parseInt(this.getAttribute('data-file-index'));
-                const inputId = this.getAttribute('data-input-id');
-                removeFile(inputId, fileIndex);
-            });
         });
-    }
-
-    // Remove file from input
-    function removeFile(inputId, fileIndex) {
+    };
+    
+    const removeFile = (inputId, fileIndex) => {
         const input = document.getElementById(inputId);
-        const files = Array.from(input.files);
-        files.splice(fileIndex, 1);
-        
-        // Create a new FileList (not directly possible, so we use DataTransfer)
+        fileStore[inputId].splice(fileIndex, 1);
         const dataTransfer = new DataTransfer();
-        files.forEach(file => dataTransfer.items.add(file));
+        fileStore[inputId].forEach(file => dataTransfer.items.add(file));
         input.files = dataTransfer.files;
-        
-        // Update preview
         handleFiles(input.files, inputId);
-    }
+        validateField(input);
+    };
 
-    // Initialize
-    updateProgressBar();
+    document.querySelectorAll('.file-input').forEach(input => {
+        input.addEventListener('change', (e) => {
+            handleFiles(e.target.files, e.target.id);
+            validateField(e.target);
+        });
+    });
+
+    document.querySelectorAll('.drop-zone').forEach(zone => {
+        zone.addEventListener('dragover', e => { e.preventDefault(); zone.classList.add('dragover'); });
+        zone.addEventListener('dragleave', e => { e.preventDefault(); zone.classList.remove('dragover'); });
+        zone.addEventListener('drop', e => {
+            e.preventDefault();
+            zone.classList.remove('dragover');
+            const inputId = zone.id.replace('-drop-zone', '');
+            const input = document.getElementById(inputId);
+            input.files = e.dataTransfer.files;
+            handleFiles(input.files, inputId);
+            validateField(input);
+        });
+    });
+
+    document.addEventListener('click', (e) => {
+        if (e.target.classList.contains('file-remove')) {
+            removeFile(e.target.dataset.inputId, parseInt(e.target.dataset.fileIndex));
+        }
+    });
+
+    // --- INITIALIZATION ---
+    showStep(0);
+});
 </script>
+
 </body>
 </html>
