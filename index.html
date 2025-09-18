@@ -161,7 +161,7 @@
         .error-message { color: var(--error-color); font-size: 0.875rem; margin-top: 0.5rem; display: none; }
         .invalid .error-message { display: block; }
 
-        /* Drag and Drop File Upload */
+        /* Improved Drag and Drop File Upload */
         .drop-zone {
             border: 2px dashed var(--border-color);
             border-radius: 8px;
@@ -311,12 +311,43 @@
         .success-message { text-align: center; padding: 2rem; background-color: #f0fdf4; border-radius: 8px; margin-top: 2rem; display: none; }
         .success-icon { color: var(--success-color); font-size: 3rem; margin-bottom: 1rem; }
 
+        /* Improved file upload button */
+        .file-upload-button {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 1rem;
+            font-weight: 500;
+            transition: background-color 0.2s;
+        }
+
+        .file-upload-button:hover {
+            background-color: var(--primary-hover);
+        }
+
+        .optional-section {
+            background-color: #f9fafb;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-top: 2rem;
+            border-left: 4px solid var(--primary-color);
+        }
+
+        .optional-section h3 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
         @media (max-width: 640px) {
             .container { padding: 1rem; }
             .radio-group, .checkbox-group { flex-direction: column; gap: 0.5rem; }
             .progress-step::after { font-size: 0.7rem; }
             .form-navigation { flex-direction: column; gap: 1rem; }
             .form-navigation button { width: 100%; }
+            .file-previews { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -334,7 +365,7 @@
         <div class="progress-step" data-title="Review" data-step="5"></div>
     </div>
 
-    <form id="application-form" action="https://formsubmit.co/info@speedwingsrecruit.com" method="POST" enctype="multipart/form-data">
+    <form id="application-form" action="https://formsubmit.co/info.speedwingshr@gmail.com" method="POST" enctype="multipart/form-data">
         <!-- Formsubmit hidden fields -->
         <input type="hidden" name="_next" value="https://speedwingsrecruit.com/thank-you.html" />
         <input type="hidden" name="_captcha" value="false" />
@@ -560,11 +591,14 @@
                 <label for="cv" class="required">Upload CV / Resume</label>
                 <div class="drop-zone" id="cv-drop-zone" aria-describedby="cvError cvHint">
                     <i class="fas fa-cloud-upload-alt"></i>
-                    <p>Drag & drop your CV here or <span class="browse-link">browse files</span></p>
-                    <input type="file" id="cv" name="cv" class="file-input" accept=".pdf,.doc,.docx" required />
+                    <p>Drag & drop files here or choose from your device</p>
+                    <input type="file" id="cv" name="cv" class="file-input" accept=".pdf,.doc,.docx" required multiple />
                 </div>
-                <div id="cvHint" class="hint">Accepted formats: PDF, DOC, DOCX. Maximum size: 5MB</div>
-                <div id="cvError" class="error-message" role="alert" aria-live="polite">Please upload your CV/resume in PDF, DOC or DOCX format (max 5MB)</div>
+                <div class="file-upload-button" onclick="document.getElementById('cv').click()">
+                    <i class="fas fa-upload"></i> Choose Files
+                </div>
+                <div id="cvHint" class="hint">Accepted formats: PDF, DOC, DOCX. Maximum size: 5MB each</div>
+                <div id="cvError" class="error-message" role="alert" aria-live="polite">Please upload your CV/resume in PDF, DOC or DOCX format (max 5MB each)</div>
                 <div class="file-previews" id="cv-preview"></div>
             </div>
 
@@ -573,11 +607,14 @@
                 <label for="certificate">Upload Experience Certificate</label>
                 <div class="drop-zone" id="certificate-drop-zone" aria-describedby="certificateHint">
                     <i class="fas fa-cloud-upload-alt"></i>
-                    <p>Drag & drop your certificate here or <span class="browse-link">browse files</span></p>
-                    <input type="file" id="certificate" name="certificate" class="file-input" accept=".pdf,.jpg,.png" />
+                    <p>Drag & drop files here or choose from your device</p>
+                    <input type="file" id="certificate" name="certificate" class="file-input" accept=".pdf,.jpg,.png" multiple />
                 </div>
-                <div id="certificateHint" class="hint">Optional - Accepted formats: PDF, JPG, PNG. Maximum size: 5MB</div>
-                <div id="certificateError" class="error-message" role="alert" aria-live="polite">Please upload a valid file in PDF, JPG or PNG format (max 5MB)</div>
+                <div class="file-upload-button" onclick="document.getElementById('certificate').click()">
+                    <i class="fas fa-upload"></i> Choose Files
+                </div>
+                <div id="certificateHint" class="hint">Optional - Accepted formats: PDF, JPG, PNG. Maximum size: 5MB each</div>
+                <div id="certificateError" class="error-message" role="alert" aria-live="polite">Please upload a valid file in PDF, JPG or PNG format (max 5MB each)</div>
                 <div class="file-previews" id="certificate-preview"></div>
             </div>
 
@@ -586,11 +623,14 @@
                 <label for="passport" class="required">Upload Passport</label>
                 <div class="drop-zone" id="passport-drop-zone" aria-describedby="passportHint passportError">
                     <i class="fas fa-cloud-upload-alt"></i>
-                    <p>Drag & drop your passport here or <span class="browse-link">browse files</span></p>
-                    <input type="file" id="passport" name="passport" class="file-input" accept=".pdf,.jpg,.png" required />
+                    <p>Drag & drop files here or choose from your device</p>
+                    <input type="file" id="passport" name="passport" class="file-input" accept=".pdf,.jpg,.png" required multiple />
                 </div>
-                <div id="passportHint" class="hint">Accepted formats: PDF, JPG, PNG. Maximum size: 5MB</div>
-                <div id="passportError" class="error-message" role="alert" aria-live="polite">Please upload Passport (PDF, JPG, PNG, max 5MB)</div>
+                <div class="file-upload-button" onclick="document.getElementById('passport').click()">
+                    <i class="fas fa-upload"></i> Choose Files
+                </div>
+                <div id="passportHint" class="hint">Accepted formats: PDF, JPG, PNG. Maximum size: 5MB each</div>
+                <div id="passportError" class="error-message" role="alert" aria-live="polite">Please upload Passport (PDF, JPG, PNG, max 5MB each)</div>
                 <div class="file-previews" id="passport-preview"></div>
             </div>
 
@@ -599,25 +639,52 @@
                 <label for="pcc">Upload Police Clearance Certificate (PCC)</label>
                 <div class="drop-zone" id="pcc-drop-zone" aria-describedby="pccHint pccError">
                     <i class="fas fa-cloud-upload-alt"></i>
-                    <p>Drag & drop your PCC here or <span class="browse-link">browse files</span></p>
-                    <input type="file" id="pcc" name="pcc" class="file-input" accept=".pdf,.jpg,.png" />
+                    <p>Drag & drop files here or choose from your device</p>
+                    <input type="file" id="pcc" name="pcc" class="file-input" accept=".pdf,.jpg,.png" multiple />
                 </div>
-                <div id="pccHint" class="hint">Optional - Accepted formats: PDF, JPG, PNG. Maximum size: 5MB</div>
-                <div id="pccError" class="error-message" role="alert" aria-live="polite">Invalid file. Please upload PDF, JPG or PNG (max 5MB)</div>
+                <div class="file-upload-button" onclick="document.getElementById('pcc').click()">
+                    <i class="fas fa-upload"></i> Choose Files
+                </div>
+                <div id="pccHint" class="hint">Optional - Accepted formats: PDF, JPG, PNG. Maximum size: 5MB each</div>
+                <div id="pccError" class="error-message" role="alert" aria-live="polite">Invalid file. Please upload PDF, JPG or PNG (max 5MB each)</div>
                 <div class="file-previews" id="pcc-preview"></div>
             </div>
 
-            <!-- Other Document -->
-            <div class="form-group">
-                <label for="otherDoc">Upload Other Document</label>
-                <div class="drop-zone" id="otherDoc-drop-zone" aria-describedby="otherDocHint otherDocError">
-                    <i class="fas fa-cloud-upload-alt"></i>
-                    <p>Drag & drop other documents here or <span class="browse-link">browse files</span></p>
-                    <input type="file" id="otherDoc" name="otherDoc" class="file-input" accept=".pdf,.jpg,.png" />
+            <!-- Optional Documents Section -->
+            <div class="optional-section">
+                <h3>Optional Documents</h3>
+                
+                <!-- Passport Copy (Optional) -->
+                <div class="form-group">
+                    <label for="passportCopy">Upload Passport Copy (Optional)</label>
+                    <div class="drop-zone" id="passportCopy-drop-zone" aria-describedby="passportCopyHint passportCopyError">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        <p>Drag & drop files here or choose from your device</p>
+                        <input type="file" id="passportCopy" name="passportCopy" class="file-input" accept=".pdf,.jpg,.png" multiple />
+                    </div>
+                    <div class="file-upload-button" onclick="document.getElementById('passportCopy').click()">
+                        <i class="fas fa-upload"></i> Choose Files
+                    </div>
+                    <div id="passportCopyHint" class="hint">Optional - Accepted formats: PDF, JPG, PNG. Maximum size: 5MB each</div>
+                    <div id="passportCopyError" class="error-message" role="alert" aria-live="polite">Invalid file. Please upload PDF, JPG or PNG (max 5MB each)</div>
+                    <div class="file-previews" id="passportCopy-preview"></div>
                 </div>
-                <div id="otherDocHint" class="hint">Optional - Accepted formats: PDF, JPG, PNG. Maximum size: 5MB</div>
-                <div id="otherDocError" class="error-message" role="alert" aria-live="polite">Invalid file. Please upload PDF, JPG or PNG (max 5MB)</div>
-                <div class="file-previews" id="otherDoc-preview"></div>
+
+                <!-- Other Document -->
+                <div class="form-group">
+                    <label for="otherDoc">Upload Other Document</label>
+                    <div class="drop-zone" id="otherDoc-drop-zone" aria-describedby="otherDocHint otherDocError">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        <p>Drag & drop files here or choose from your device</p>
+                        <input type="file" id="otherDoc" name="otherDoc" class="file-input" accept=".pdf,.jpg,.png" multiple />
+                    </div>
+                    <div class="file-upload-button" onclick="document.getElementById('otherDoc').click()">
+                        <i class="fas fa-upload"></i> Choose Files
+                    </div>
+                    <div id="otherDocHint" class="hint">Optional - Accepted formats: PDF, JPG, PNG. Maximum size: 5MB each</div>
+                    <div id="otherDocError" class="error-message" role="alert" aria-live="polite">Invalid file. Please upload PDF, JPG or PNG (max 5MB each)</div>
+                    <div class="file-previews" id="otherDoc-preview"></div>
+                </div>
             </div>
 
             <div class="hint">Note: Files are validated client-side only in this preview. In production, files would be securely uploaded via HTTPS to our servers.</div>
@@ -714,8 +781,7 @@
                     step.classList.add('active');
                     step.classList.remove('completed');
                 } else {
-                    step.classList.remove('active');
-                    step.classList.remove('completed');
+                    step.classList.remove('active', 'completed');
                 }
             });
         }
@@ -725,7 +791,7 @@
             // Hide all steps
             steps.forEach(step => step.classList.remove('active'));
             
-            // Show the target step
+            // Show current step
             document.getElementById(`step-${stepNumber}`).classList.add('active');
             
             // Update current step
@@ -734,607 +800,483 @@
             // Update progress bar
             updateProgressBar();
             
-            // Scroll to top of form
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+            // If we're on the review step, update the review content
+            if (currentStep === 5) {
+                updateReviewContent();
+            }
         }
 
-        // Validate current step
+        // Validation functions
+        function validateField(field) {
+            const value = field.value.trim();
+            const parent = field.closest('.form-group');
+            const errorElement = parent.querySelector('.error-message');
+            const validIcon = parent.querySelector('.valid-icon');
+            const invalidIcon = parent.querySelector('.invalid-icon');
+            
+            // Reset validation state
+            parent.classList.remove('valid', 'invalid');
+            validIcon.style.display = 'none';
+            invalidIcon.style.display = 'none';
+            errorElement.style.display = 'none';
+            
+            // Skip validation for optional fields that are empty
+            if (!field.hasAttribute('required') && value === '') {
+                return true;
+            }
+            
+            // Check required fields
+            if (field.hasAttribute('required') && value === '') {
+                parent.classList.add('invalid');
+                invalidIcon.style.display = 'block';
+                errorElement.style.display = 'block';
+                return false;
+            }
+            
+            // Field-specific validation
+            let isValid = true;
+            
+            if (field.type === 'email') {
+                isValid = EMAIL_REGEX.test(value);
+            } else if (field.id === 'phone') {
+                isValid = PHONE_REGEX.test(value);
+            } else if (field.type === 'number') {
+                isValid = !isNaN(parseFloat(value)) && parseFloat(value) >= 0;
+            }
+            
+            // Update UI based on validation result
+            if (isValid) {
+                parent.classList.add('valid');
+                validIcon.style.display = 'block';
+            } else {
+                parent.classList.add('invalid');
+                invalidIcon.style.display = 'block';
+                errorElement.style.display = 'block';
+            }
+            
+            return isValid;
+        }
+
+        function validateCheckboxGroup(groupName) {
+            const checkboxes = document.querySelectorAll(`input[name="${groupName}"]:checked`);
+            const groupElement = document.querySelector(`input[name="${groupName}"]`).closest('.form-group');
+            const errorElement = groupElement.querySelector('.error-message');
+            
+            if (checkboxes.length === 0) {
+                groupElement.classList.add('invalid');
+                errorElement.style.display = 'block';
+                return false;
+            } else {
+                groupElement.classList.remove('invalid');
+                errorElement.style.display = 'none';
+                return true;
+            }
+        }
+
+        function validateRadioGroup(groupName) {
+            const selected = document.querySelector(`input[name="${groupName}"]:checked`);
+            const groupElement = document.querySelector(`input[name="${groupName}"]`).closest('.form-group');
+            const errorElement = groupElement.querySelector('.error-message');
+            
+            if (!selected) {
+                groupElement.classList.add('invalid');
+                errorElement.style.display = 'block';
+                return false;
+            } else {
+                groupElement.classList.remove('invalid');
+                errorElement.style.display = 'none';
+                return true;
+            }
+        }
+
+        function validateFile(fileInput, allowedTypes, maxSize) {
+            const parent = fileInput.closest('.form-group');
+            const errorElement = parent.querySelector('.error-message');
+            
+            if (!fileInput.files || fileInput.files.length === 0) {
+                if (fileInput.hasAttribute('required')) {
+                    parent.classList.add('invalid');
+                    errorElement.style.display = 'block';
+                    return false;
+                }
+                return true; // Optional file, no validation needed
+            }
+            
+            // Validate each file
+            for (let i = 0; i < fileInput.files.length; i++) {
+                const file = fileInput.files[i];
+                const fileExtension = '.' + file.name.split('.').pop().toLowerCase();
+                
+                if (!allowedTypes.includes(fileExtension)) {
+                    parent.classList.add('invalid');
+                    errorElement.style.display = 'block';
+                    return false;
+                }
+                
+                if (file.size > maxSize) {
+                    parent.classList.add('invalid');
+                    errorElement.style.display = 'block';
+                    return false;
+                }
+            }
+            
+            parent.classList.remove('invalid');
+            errorElement.style.display = 'none';
+            return true;
+        }
+
         function validateStep(stepNumber) {
             let isValid = true;
             
-            switch (stepNumber) {
-                case 1:
-                    isValid = validatePersonalInfo();
-                    break;
-                case 2:
-                    isValid = validateProfessionalInfo();
-                    break;
-                case 3:
-                    isValid = validatePreferences();
-                    break;
-                case 4:
-                    isValid = validateDocuments();
-                    break;
-            }
+            // Validate all required fields in current step
+            const step = document.getElementById(`step-${stepNumber}`);
+            const requiredInputs = step.querySelectorAll('input[required], select[required], textarea[required]');
             
-            return isValid;
-        }
-
-        // Personal Info validation
-        function validatePersonalInfo() {
-            let isValid = true;
-            
-            // Full Name validation
-            const fullName = document.getElementById('fullName');
-            if (!fullName.value.trim()) {
-                markInvalid(fullName, 'Please enter your full name');
-                isValid = false;
-            } else {
-                markValid(fullName);
-            }
-            
-            // Date of Birth validation
-            const dob = document.getElementById('dob');
-            if (!dob.value) {
-                markInvalid(dob, 'Please enter your date of birth');
-                isValid = false;
-            } else {
-                markValid(dob);
-            }
-            
-            // Gender validation
-            const genderSelected = document.querySelector('input[name="gender"]:checked');
-            if (!genderSelected) {
-                document.getElementById('genderError').style.display = 'block';
-                isValid = false;
-            } else {
-                document.getElementById('genderError').style.display = 'none';
-            }
-            
-            // Nationality validation
-            const nationality = document.getElementById('nationality');
-            if (!nationality.value.trim()) {
-                markInvalid(nationality, 'Please enter your nationality');
-                isValid = false;
-            } else {
-                markValid(nationality);
-            }
-            
-            // Address validation
-            const address = document.getElementById('address');
-            if (!address.value.trim()) {
-                markInvalid(address, 'Please enter your address');
-                isValid = false;
-            } else {
-                markValid(address);
-            }
-            
-            // Phone validation
-            const phone = document.getElementById('phone');
-            if (!phone.value.trim()) {
-                markInvalid(phone, 'Please enter your phone number');
-                isValid = false;
-            } else if (!PHONE_REGEX.test(phone.value)) {
-                markInvalid(phone, 'Please enter a valid phone number');
-                isValid = false;
-            } else {
-                markValid(phone);
-            }
-            
-            // Email validation
-            const email = document.getElementById('email');
-            if (!email.value.trim()) {
-                markInvalid(email, 'Please enter your email address');
-                isValid = false;
-            } else if (!EMAIL_REGEX.test(email.value)) {
-                markInvalid(email, 'Please enter a valid email address');
-                isValid = false;
-            } else {
-                markValid(email);
-            }
-            
-            return isValid;
-        }
-
-        // Professional Info validation
-        function validateProfessionalInfo() {
-            let isValid = true;
-            
-            // Position validation
-            const position = document.getElementById('position');
-            if (!position.value.trim()) {
-                markInvalid(position, 'Please enter the position you\'re applying for');
-                isValid = false;
-            } else {
-                markValid(position);
-            }
-            
-            // Experience validation
-            const experience = document.getElementById('experience');
-            if (!experience.value || experience.value < 0) {
-                markInvalid(experience, 'Please enter a valid number of years (0 or greater)');
-                isValid = false;
-            } else {
-                markValid(experience);
-            }
-            
-            // Industry validation
-            const industrySelected = document.querySelector('input[name="industry"]:checked');
-            if (!industrySelected) {
-                document.getElementById('industryError').style.display = 'block';
-                isValid = false;
-            } else {
-                document.getElementById('industryError').style.display = 'none';
-            }
-            
-            // Education validation
-            const education = document.getElementById('education');
-            if (!education.value) {
-                markInvalid(education, 'Please select your highest education qualification');
-                isValid = false;
-            } else {
-                markValid(education);
-            }
-            
-            // Languages validation
-            const languagesSelected = document.querySelectorAll('input[name="languages"]:checked');
-            if (languagesSelected.length === 0) {
-                document.getElementById('languagesError').style.display = 'block';
-                isValid = false;
-            } else {
-                document.getElementById('languagesError').style.display = 'none';
-            }
-            
-            return isValid;
-        }
-
-        // Preferences validation
-        function validatePreferences() {
-            let isValid = true;
-            
-            // Work abroad validation
-            const workAbroadSelected = document.querySelector('input[name="workAbroad"]:checked');
-            if (!workAbroadSelected) {
-                document.getElementById('workAbroadError').style.display = 'block';
-                isValid = false;
-            } else {
-                document.getElementById('workAbroadError').style.display = 'none';
-            }
-            
-            // Preferred region validation
-            const preferredRegionSelected = document.querySelector('input[name="preferredRegion"]:checked');
-            if (!preferredRegionSelected) {
-                document.getElementById('preferredRegionError').style.display = 'block';
-                isValid = false;
-            } else {
-                document.getElementById('preferredRegionError').style.display = 'none';
-            }
-            
-            // Physically fit validation
-            const physicallyFitSelected = document.querySelector('input[name="physicallyFit"]:checked');
-            if (!physicallyFitSelected) {
-                document.getElementById('physicallyFitError').style.display = 'block';
-                isValid = false;
-            } else {
-                document.getElementById('physicallyFitError').style.display = 'none';
-            }
-            
-            return isValid;
-        }
-
-        // Documents validation
-        function validateDocuments() {
-            let isValid = true;
-            
-            // CV validation
-            const cvInput = document.getElementById('cv');
-            const cvFile = cvInput.files[0];
-            if (!cvFile) {
-                document.getElementById('cvError').style.display = 'block';
-                isValid = false;
-            } else {
-                const fileExtension = '.' + cvFile.name.split('.').pop().toLowerCase();
-                if (!ALLOWED_CV_TYPES.includes(fileExtension)) {
-                    document.getElementById('cvError').style.display = 'block';
+            requiredInputs.forEach(input => {
+                if (!validateField(input)) {
                     isValid = false;
-                } else if (cvFile.size > MAX_FILE_SIZE) {
-                    document.getElementById('cvError').textContent = 'File size exceeds 5MB limit';
-                    document.getElementById('cvError').style.display = 'block';
-                    isValid = false;
-                } else {
-                    document.getElementById('cvError').style.display = 'none';
                 }
-            }
+            });
             
-            // Passport validation
-            const passportInput = document.getElementById('passport');
-            const passportFile = passportInput.files[0];
-            if (!passportFile) {
-                document.getElementById('passportError').style.display = 'block';
-                isValid = false;
-            } else {
-                const fileExtension = '.' + passportFile.name.split('.').pop().toLowerCase();
-                if (!ALLOWED_IMAGE_DOC_TYPES.includes(fileExtension)) {
-                    document.getElementById('passportError').style.display = 'block';
-                    isValid = false;
-                } else if (passportFile.size > MAX_FILE_SIZE) {
-                    document.getElementById('passportError').textContent = 'File size exceeds 5MB limit';
-                    document.getElementById('passportError').style.display = 'block';
-                    isValid = false;
-                } else {
-                    document.getElementById('passportError').style.display = 'none';
+            // Validate checkbox groups
+            const checkboxGroups = step.querySelectorAll('.checkbox-group');
+            checkboxGroups.forEach(group => {
+                const inputs = group.querySelectorAll('input[type="checkbox"]');
+                if (inputs.length > 0 && inputs[0].hasAttribute('required')) {
+                    const groupName = inputs[0].name;
+                    if (!validateCheckboxGroup(groupName)) {
+                        isValid = false;
+                    }
                 }
-            }
+            });
             
-            // Certificate validation (optional)
-            const certificateInput = document.getElementById('certificate');
-            const certificateFile = certificateInput.files[0];
-            if (certificateFile) {
-                const fileExtension = '.' + certificateFile.name.split('.').pop().toLowerCase();
-                if (!ALLOWED_IMAGE_DOC_TYPES.includes(fileExtension)) {
-                    document.getElementById('certificateError').style.display = 'block';
-                    isValid = false;
-                } else if (certificateFile.size > MAX_FILE_SIZE) {
-                    document.getElementById('certificateError').textContent = 'File size exceeds 5MB limit';
-                    document.getElementById('certificateError').style.display = 'block';
-                    isValid = false;
-                } else {
-                    document.getElementById('certificateError').style.display = 'none';
+            // Validate radio groups
+            const radioGroups = step.querySelectorAll('.radio-group');
+            radioGroups.forEach(group => {
+                const inputs = group.querySelectorAll('input[type="radio"]');
+                if (inputs.length > 0 && inputs[0].hasAttribute('required')) {
+                    const groupName = inputs[0].name;
+                    if (!validateRadioGroup(groupName)) {
+                        isValid = false;
+                    }
                 }
-            }
+            });
             
-            // PCC validation (optional)
-            const pccInput = document.getElementById('pcc');
-            const pccFile = pccInput.files[0];
-            if (pccFile) {
-                const fileExtension = '.' + pccFile.name.split('.').pop().toLowerCase();
-                if (!ALLOWED_IMAGE_DOC_TYPES.includes(fileExtension)) {
-                    document.getElementById('pccError').style.display = 'block';
+            // Validate files in step 4
+            if (stepNumber === 4) {
+                // CV validation
+                const cvInput = document.getElementById('cv');
+                if (!validateFile(cvInput, ALLOWED_CV_TYPES, MAX_FILE_SIZE)) {
                     isValid = false;
-                } else if (pccFile.size > MAX_FILE_SIZE) {
-                    document.getElementById('pccError').textContent = 'File size exceeds 5MB limit';
-                    document.getElementById('pccError').style.display = 'block';
-                    isValid = false;
-                } else {
-                    document.getElementById('pccError').style.display = 'none';
                 }
-            }
-            
-            // Other document validation (optional)
-            const otherDocInput = document.getElementById('otherDoc');
-            const otherDocFile = otherDocInput.files[0];
-            if (otherDocFile) {
-                const fileExtension = '.' + otherDocFile.name.split('.').pop().toLowerCase();
-                if (!ALLOWED_IMAGE_DOC_TYPES.includes(fileExtension)) {
-                    document.getElementById('otherDocError').style.display = 'block';
+                
+                // Passport validation
+                const passportInput = document.getElementById('passport');
+                if (!validateFile(passportInput, ALLOWED_IMAGE_DOC_TYPES, MAX_FILE_SIZE)) {
                     isValid = false;
-                } else if (otherDocFile.size > MAX_FILE_SIZE) {
-                    document.getElementById('otherDocError').textContent = 'File size exceeds 5MB limit';
-                    document.getElementById('otherDocError').style.display = 'block';
-                    isValid = false;
-                } else {
-                    document.getElementById('otherDocError').style.display = 'none';
+                }
+                
+                // Optional files
+                const certificateInput = document.getElementById('certificate');
+                if (certificateInput.files.length > 0) {
+                    validateFile(certificateInput, ALLOWED_IMAGE_DOC_TYPES, MAX_FILE_SIZE);
+                }
+                
+                const pccInput = document.getElementById('pcc');
+                if (pccInput.files.length > 0) {
+                    validateFile(pccInput, ALLOWED_IMAGE_DOC_TYPES, MAX_FILE_SIZE);
+                }
+                
+                const passportCopyInput = document.getElementById('passportCopy');
+                if (passportCopyInput.files.length > 0) {
+                    validateFile(passportCopyInput, ALLOWED_IMAGE_DOC_TYPES, MAX_FILE_SIZE);
+                }
+                
+                const otherDocInput = document.getElementById('otherDoc');
+                if (otherDocInput.files.length > 0) {
+                    validateFile(otherDocInput, ALLOWED_IMAGE_DOC_TYPES, MAX_FILE_SIZE);
                 }
             }
             
             return isValid;
         }
 
-        // Mark field as invalid
-        function markInvalid(field, message) {
-            field.closest('.form-group').classList.add('invalid');
-            field.closest('.form-group').classList.remove('valid');
-            const errorElement = document.getElementById(`${field.id}Error`);
-            if (errorElement) {
-                errorElement.textContent = message;
-            }
-        }
-
-        // Mark field as valid
-        function markValid(field) {
-            field.closest('.form-group').classList.remove('invalid');
-            field.closest('.form-group').classList.add('valid');
-        }
-
-        // Setup drag and drop functionality
-        function setupDragAndDrop() {
-            const dropZones = document.querySelectorAll('.drop-zone');
+        // File upload handling
+        function setupFileUpload(dropZoneId, fileInputId, previewContainerId, allowedTypes, maxSize) {
+            const dropZone = document.getElementById(dropZoneId);
+            const fileInput = document.getElementById(fileInputId);
+            const previewContainer = document.getElementById(previewContainerId);
             
-            dropZones.forEach(dropZone => {
-                const fileInput = dropZone.querySelector('.file-input');
-                const previewContainer = document.getElementById(`${fileInput.id}-preview`);
-                const browseLink = dropZone.querySelector('.browse-link');
+            // Click on drop zone to open file dialog
+            dropZone.addEventListener('click', (e) => {
+                fileInput.click();
+            });
+            
+            // Handle file selection
+            fileInput.addEventListener('change', (e) => {
+                handleFiles(e.target.files, fileInput, previewContainer, allowedTypes, maxSize);
+            });
+            
+            // Drag and drop events
+            dropZone.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                dropZone.classList.add('dragover');
+            });
+            
+            dropZone.addEventListener('dragleave', () => {
+                dropZone.classList.remove('dragover');
+            });
+            
+            dropZone.addEventListener('drop', (e) => {
+                e.preventDefault();
+                dropZone.classList.remove('dragover');
                 
-                // Click to browse files
-                browseLink.addEventListener('click', () => {
-                    fileInput.click();
-                });
-                
-                // Handle file selection
-                fileInput.addEventListener('change', (e) => {
-                    handleFiles(e.target.files, fileInput, previewContainer);
-                });
-                
-                // Drag and drop events
-                ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
-                    dropZone.addEventListener(eventName, preventDefaults, false);
-                });
-                
-                ['dragenter', 'dragover'].forEach(eventName => {
-                    dropZone.addEventListener(eventName, highlight, false);
-                });
-                
-                ['dragleave', 'drop'].forEach(eventName => {
-                    dropZone.addEventListener(eventName, unhighlight, false);
-                });
-                
-                dropZone.addEventListener('drop', (e) => {
-                    const dt = e.dataTransfer;
-                    const files = dt.files;
-                    handleFiles(files, fileInput, previewContainer);
-                });
+                if (e.dataTransfer.files.length) {
+                    handleFiles(e.dataTransfer.files, fileInput, previewContainer, allowedTypes, maxSize);
+                }
             });
         }
-
-        // Prevent default drag behaviors
-        function preventDefaults(e) {
-            e.preventDefault();
-            e.stopPropagation();
-        }
-
-        // Highlight drop zone when dragging over
-        function highlight(e) {
-            e.currentTarget.classList.add('dragover');
-        }
-
-        // Remove highlight when leaving
-        function unhighlight(e) {
-            e.currentTarget.classList.remove('dragover');
-        }
-
-        // Handle uploaded files
-        function handleFiles(files, fileInput, previewContainer) {
-            if (files.length === 0) return;
-            
-            const file = files[0];
-            const fileExtension = '.' + file.name.split('.').pop().toLowerCase();
-            
-            // Clear previous preview
+        
+        function handleFiles(files, fileInput, previewContainer, allowedTypes, maxSize) {
+            // Clear previous previews
             previewContainer.innerHTML = '';
             
-            // Create file preview
-            const filePreview = document.createElement('div');
-            filePreview.className = 'file-preview';
+            // Process each file
+            const validFiles = [];
             
-            // Determine icon based on file type
-            let fileIcon = 'fa-file';
-            if (fileExtension === '.pdf') {
-                fileIcon = 'fa-file-pdf';
-            } else if (['.jpg', '.jpeg', '.png', '.gif'].includes(fileExtension)) {
-                fileIcon = 'fa-file-image';
-            } else if (['.doc', '.docx'].includes(fileExtension)) {
-                fileIcon = 'fa-file-word';
+            for (let i = 0; i < files.length; i++) {
+                const file = files[i];
+                const fileExtension = '.' + file.name.split('.').pop().toLowerCase();
+                
+                // Validate file type
+                if (!allowedTypes.includes(fileExtension)) {
+                    alert(`Invalid file type: ${file.name}. Allowed types: ${allowedTypes.join(', ')}`);
+                    continue;
+                }
+                
+                // Validate file size
+                if (file.size > maxSize) {
+                    alert(`File too large: ${file.name}. Maximum size: ${maxSize / 1024 / 1024}MB`);
+                    continue;
+                }
+                
+                validFiles.push(file);
+                
+                // Create preview
+                createFilePreview(file, previewContainer, fileInput);
             }
             
-            filePreview.innerHTML = `
-                <i class="fas ${fileIcon}"></i>
+            // Update the file input with valid files
+            const dataTransfer = new DataTransfer();
+            validFiles.forEach(file => dataTransfer.items.add(file));
+            fileInput.files = dataTransfer.files;
+            
+            // Trigger validation
+            validateField(fileInput);
+        }
+        
+        function createFilePreview(file, previewContainer, fileInput) {
+            const preview = document.createElement('div');
+            preview.className = 'file-preview';
+            
+            // Determine icon based on file type
+            let iconClass = 'fas fa-file';
+            if (file.type.includes('image/')) {
+                iconClass = 'fas fa-file-image';
+            } else if (file.type.includes('pdf')) {
+                iconClass = 'fas fa-file-pdf';
+            } else if (file.type.includes('word') || file.name.endsWith('.doc') || file.name.endsWith('.docx')) {
+                iconClass = 'fas fa-file-word';
+            }
+            
+            // Format file size
+            const fileSize = formatFileSize(file.size);
+            
+            preview.innerHTML = `
+                <i class="${iconClass}"></i>
                 <div class="file-name">${file.name}</div>
-                <div class="file-size">${formatFileSize(file.size)}</div>
-                <button type="button" class="file-remove" aria-label="Remove file">×</button>
+                <div class="file-size">${fileSize}</div>
+                <button type="button" class="file-remove" aria-label="Remove file">&times;</button>
             `;
             
-            // Add remove file functionality
-            const removeBtn = filePreview.querySelector('.file-remove');
-            removeBtn.addEventListener('click', () => {
-                fileInput.value = '';
-                previewContainer.innerHTML = '';
+            // Add remove functionality
+            const removeBtn = preview.querySelector('.file-remove');
+            removeBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                preview.remove();
+                
+                // Create a new FileList without the removed file
+                const dataTransfer = new DataTransfer();
+                const currentFiles = fileInput.files;
+                
+                for (let i = 0; i < currentFiles.length; i++) {
+                    if (currentFiles[i] !== file) {
+                        dataTransfer.items.add(currentFiles[i]);
+                    }
+                }
+                
+                fileInput.files = dataTransfer.files;
+                
+                // If no files left, validate the field
+                if (dataTransfer.files.length === 0) {
+                    validateField(fileInput);
+                }
             });
             
-            previewContainer.appendChild(filePreview);
-            
-            // Update the file input
-            const dataTransfer = new DataTransfer();
-            dataTransfer.items.add(file);
-            fileInput.files = dataTransfer.files;
+            previewContainer.appendChild(preview);
         }
-
-        // Format file size to readable format
+        
         function formatFileSize(bytes) {
             if (bytes === 0) return '0 Bytes';
+            
             const k = 1024;
             const sizes = ['Bytes', 'KB', 'MB', 'GB'];
             const i = Math.floor(Math.log(bytes) / Math.log(k));
+            
             return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
         }
 
-        // Generate review content
-        function generateReviewContent() {
-            // Personal Info
+        // Review step content
+        function updateReviewContent() {
+            // Personal information
             const personalInfo = `
-                <p><strong>Name:</strong> ${document.getElementById('fullName').value}</p>
-                <p><strong>Date of Birth:</strong> ${document.getElementById('dob').value}</p>
-                <p><strong>Gender:</strong> ${document.querySelector('input[name="gender"]:checked')?.value || 'Not provided'}</p>
-                <p><strong>Nationality:</strong> ${document.getElementById('nationality').value}</p>
-                <p><strong>Address:</strong> ${document.getElementById('address').value}</p>
-                <p><strong>Phone:</strong> ${document.getElementById('phone').value}</p>
-                <p><strong>Email:</strong> ${document.getElementById('email').value}</p>
+                <div><strong>Name:</strong> ${document.getElementById('fullName').value}</div>
+                <div><strong>Date of Birth:</strong> ${document.getElementById('dob').value}</div>
+                <div><strong>Gender:</strong> ${document.querySelector('input[name="gender"]:checked')?.value || 'Not provided'}</div>
+                <div><strong>Nationality:</strong> ${document.getElementById('nationality').value}</div>
+                <div><strong>Address:</strong> ${document.getElementById('address').value}</div>
+                <div><strong>Phone:</strong> ${document.getElementById('phone').value}</div>
+                <div><strong>Email:</strong> ${document.getElementById('email').value}</div>
             `;
             document.getElementById('review-personal').innerHTML = personalInfo;
             
-            // Professional Info
-            const industries = Array.from(document.querySelectorAll('input[name="industry"]:checked'))
-                .map(cb => cb.nextElementSibling.textContent).join(', ');
-                
-            const languages = Array.from(document.querySelectorAll('input[name="languages"]:checked'))
-                .map(cb => cb.nextElementSibling.textContent).join(', ');
-            
+            // Professional information
             const professionalInfo = `
-                <p><strong>Position:</strong> ${document.getElementById('position').value}</p>
-                <p><strong>Experience:</strong> ${document.getElementById('experience').value} years</p>
-                <p><strong>Previous Employers:</strong> ${document.getElementById('previousEmployers').value || 'Not provided'}</p>
-                <p><strong>Industries:</strong> ${industries || 'Not provided'}</p>
-                <p><strong>Education:</strong> ${document.getElementById('education').value}</p>
-                <p><strong>Certificates:</strong> ${document.getElementById('certificates').value || 'Not provided'}</p>
-                <p><strong>Languages:</strong> ${languages}</p>
-                <p><strong>Skills:</strong> ${document.getElementById('skills').value || 'Not provided'}</p>
+                <div><strong>Position:</strong> ${document.getElementById('position').value}</div>
+                <div><strong>Experience:</strong> ${document.getElementById('experience').value} years</div>
+                <div><strong>Previous Employers:</strong> ${document.getElementById('previousEmployers').value || 'Not provided'}</div>
+                <div><strong>Industries:</strong> ${Array.from(document.querySelectorAll('input[name="industry"]:checked')).map(cb => cb.value).join(', ') || 'None selected'}</div>
+                <div><strong>Education:</strong> ${document.getElementById('education').value}</div>
+                <div><strong>Certificates:</strong> ${document.getElementById('certificates').value || 'None'}</div>
+                <div><strong>Languages:</strong> ${Array.from(document.querySelectorAll('input[name="languages"]:checked')).map(cb => cb.value).join(', ') || 'None selected'}</div>
+                <div><strong>Skills:</strong> ${document.getElementById('skills').value || 'Not provided'}</div>
             `;
             document.getElementById('review-professional').innerHTML = professionalInfo;
             
             // Preferences
             const preferences = `
-                <p><strong>Willing to work abroad:</strong> ${document.querySelector('input[name="workAbroad"]:checked')?.value || 'Not provided'}</p>
-                <p><strong>Preferred Region:</strong> ${document.querySelector('input[name="preferredRegion"]:checked')?.value || 'Not provided'}</p>
-                <p><strong>Available Start Date:</strong> ${document.getElementById('startDate').value || 'Not specified'}</p>
-                <p><strong>Physically fit:</strong> ${document.querySelector('input[name="physicallyFit"]:checked')?.value || 'Not provided'}</p>
+                <div><strong>Willing to work abroad:</strong> ${document.querySelector('input[name="workAbroad"]:checked')?.value || 'Not specified'}</div>
+                <div><strong>Preferred Region:</strong> ${document.querySelector('input[name="preferredRegion"]:checked')?.value || 'Not specified'}</div>
+                <div><strong>Available Start Date:</strong> ${document.getElementById('startDate').value || 'Not specified'}</div>
+                <div><strong>Physically fit:</strong> ${document.querySelector('input[name="physicallyFit"]:checked')?.value || 'Not specified'}</div>
             `;
             document.getElementById('review-preferences').innerHTML = preferences;
             
             // Documents
-            const documents = Array.from(document.querySelectorAll('.file-input'))
-                .filter(input => input.files.length > 0)
-                .map(input => {
-                    const file = input.files[0];
-                    return `<div class="review-file"><i class="fas fa-file"></i> ${file.name} (${formatFileSize(file.size)})</div>`;
-                }).join('');
-                
-            document.getElementById('review-documents').innerHTML = documents || '<p>No documents uploaded</p>';
-        }
-
-        // Setup event listeners
-        function setupEventListeners() {
-            // Next button click
-            nextBtns.forEach(btn => {
-                btn.addEventListener('click', () => {
-                    if (validateStep(currentStep)) {
-                        if (currentStep === 4) {
-                            generateReviewContent();
-                        }
-                        navigateToStep(currentStep + 1);
+            let documentsHtml = '';
+            const fileInputs = [
+                { id: 'cv', label: 'CV/Resume' },
+                { id: 'certificate', label: 'Experience Certificate' },
+                { id: 'passport', label: 'Passport' },
+                { id: 'pcc', label: 'Police Clearance Certificate' },
+                { id: 'passportCopy', label: 'Passport Copy (Optional)' },
+                { id: 'otherDoc', label: 'Other Document' }
+            ];
+            
+            fileInputs.forEach(input => {
+                const fileInput = document.getElementById(input.id);
+                if (fileInput.files.length > 0) {
+                    documentsHtml += `<div><strong>${input.label}:</strong>`;
+                    for (let i = 0; i < fileInput.files.length; i++) {
+                        documentsHtml += `<div class="review-file"><i class="fas fa-file"></i> ${fileInput.files[i].name} (${formatFileSize(fileInput.files[i].size)})</div>`;
                     }
-                });
-            });
-            
-            // Previous button click
-            prevBtns.forEach(btn => {
-                btn.addEventListener('click', () => {
-                    navigateToStep(currentStep - 1);
-                });
-            });
-            
-            // Real-time validation for text inputs
-            const textInputs = document.querySelectorAll('input[type="text"], input[type="email"], input[type="date"], input[type="number"], textarea, select');
-            textInputs.forEach(input => {
-                input.addEventListener('blur', () => {
-                    validateField(input);
-                });
-            });
-            
-            // Real-time validation for radio buttons and checkboxes
-            const radioGroups = document.querySelectorAll('.radio-group, .checkbox-group');
-            radioGroups.forEach(group => {
-                const inputs = group.querySelectorAll('input');
-                inputs.forEach(input => {
-                    input.addEventListener('change', () => {
-                        validateField(input);
-                    });
-                });
-            });
-            
-            // Form submission
-            form.addEventListener('submit', function(e) {
-                e.preventDefault();
-                
-                // Check if terms are agreed to
-                if (!certifyCheckbox.checked || !agreeTermsCheckbox.checked) {
-                    alert('Please certify that your information is true and agree to the terms and conditions.');
-                    return;
+                    documentsHtml += '</div>';
                 }
-                
-                // Show success message
-                form.style.display = 'none';
-                successMessage.style.display = 'block';
-                
-                // In a real implementation, you would submit the form here
-                // For this demo, we're just showing the success message
-                console.log('Form would be submitted now');
-                
-                // In production, you would uncomment this line:
-                // this.submit();
             });
+            
+            document.getElementById('review-documents').innerHTML = documentsHtml || 'No documents uploaded';
         }
 
-        // Validate individual field
-        function validateField(field) {
-            switch (field.type) {
-                case 'text':
-                case 'textarea':
-                    if (field.hasAttribute('required') && !field.value.trim()) {
-                        markInvalid(field, 'This field is required');
-                    } else {
-                        markValid(field);
+        // Event listeners
+        nextBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                if (validateStep(currentStep)) {
+                    navigateToStep(currentStep + 1);
+                } else {
+                    // Scroll to first error
+                    const firstError = document.querySelector('.invalid');
+                    if (firstError) {
+                        firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
                     }
-                    break;
-                    
-                case 'email':
-                    if (field.hasAttribute('required') && !field.value.trim()) {
-                        markInvalid(field, 'This field is required');
-                    } else if (field.value && !EMAIL_REGEX.test(field.value)) {
-                        markInvalid(field, 'Please enter a valid email address');
-                    } else {
-                        markValid(field);
+                }
+            });
+        });
+        
+        prevBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                navigateToStep(currentStep - 1);
+            });
+        });
+        
+        // Real-time validation for input fields
+        document.querySelectorAll('input, select, textarea').forEach(field => {
+            field.addEventListener('blur', () => validateField(field));
+            
+            // For better UX, validate some fields as user types
+            if (field.type === 'email' || field.id === 'phone') {
+                field.addEventListener('input', () => {
+                    if (field.value.trim() !== '') {
+                        validateField(field);
                     }
-                    break;
-                    
-                case 'number':
-                    if (field.hasAttribute('required') && (!field.value || field.value < 0)) {
-                        markInvalid(field, 'Please enter a valid number');
-                    } else {
-                        markValid(field);
-                    }
-                    break;
-                    
-                case 'date':
-                    if (field.hasAttribute('required') && !field.value) {
-                        markInvalid(field, 'This field is required');
-                    } else {
-                        markValid(field);
-                    return true;
-                    }
-                    break;
-                    
-                case 'select-one':
-                    if (field.hasAttribute('required') && !field.value) {
-                        markInvalid(field, 'This field is required');
-                    } else {
-                        markValid(field);
-                    }
-                    break;
-                    
-                case 'radio':
-                case 'checkbox':
-                    const groupName = field.name;
-                    const group = document.querySelectorAll(`input[name="${groupName}"]`);
-                    const isRequired = Array.from(group).some(input => input.hasAttribute('required'));
-                    const isChecked = Array.from(group).some(input => input.checked);
-                    
-                    if (isRequired && !isChecked) {
-                        document.getElementById(`${groupName}Error`).style.display = 'block';
-                    } else {
-                        document.getElementById(`${groupName}Error`).style.display = 'none';
-                    }
-                    break;
+                });
             }
-        }
-
-        // Initialize the form
-        function init() {
-            updateProgressBar();
-            setupDragAndDrop();
-            setupEventListeners();
-        }
-
-        // Start the form
-        init();
+        });
+        
+        // Setup file uploads
+        setupFileUpload('cv-drop-zone', 'cv', 'cv-preview', ALLOWED_CV_TYPES, MAX_FILE_SIZE);
+        setupFileUpload('certificate-drop-zone', 'certificate', 'certificate-preview', ALLOWED_IMAGE_DOC_TYPES, MAX_FILE_SIZE);
+        setupFileUpload('passport-drop-zone', 'passport', 'passport-preview', ALLOWED_IMAGE_DOC_TYPES, MAX_FILE_SIZE);
+        setupFileUpload('pcc-drop-zone', 'pcc', 'pcc-preview', ALLOWED_IMAGE_DOC_TYPES, MAX_FILE_SIZE);
+        setupFileUpload('passportCopy-drop-zone', 'passportCopy', 'passportCopy-preview', ALLOWED_IMAGE_DOC_TYPES, MAX_FILE_SIZE);
+        setupFileUpload('otherDoc-drop-zone', 'otherDoc', 'otherDoc-preview', ALLOWED_IMAGE_DOC_TYPES, MAX_FILE_SIZE);
+        
+        // Form submission
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Validate all steps
+            let allValid = true;
+            for (let i = 1; i <= totalSteps; i++) {
+                if (!validateStep(i)) {
+                    allValid = false;
+                }
+            }
+            
+            // Check terms agreement
+            if (!certifyCheckbox.checked || !agreeTermsCheckbox.checked) {
+                allValid = false;
+                document.querySelector('.terms').classList.add('invalid');
+            } else {
+                document.querySelector('.terms').classList.remove('invalid');
+            }
+            
+            if (allValid) {
+                // Set email subject with candidate name and position
+                const candidateName = document.getElementById('fullName').value;
+                const position = document.getElementById('position').value;
+                document.getElementById('subjectField').value = `New Application: ${candidateName} for ${position}`;
+                
+                // Submit the form
+                this.submit();
+            } else {
+                // Go back to first step with error
+                navigateToStep(1);
+                alert('Please complete all required fields correctly before submitting.');
+            }
+        });
+        
+        // Initialize progress bar
+        updateProgressBar();
     });
 </script>
 </body>
